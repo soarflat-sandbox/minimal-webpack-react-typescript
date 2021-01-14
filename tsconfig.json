@@ -39,5 +39,5 @@
        strictPropertyInitialization）を有効化する */
     "strict": true
   },
-  "include": ["src/**/*"]
+  "include": ["src/**/*", "styles.d.ts"]
 }
