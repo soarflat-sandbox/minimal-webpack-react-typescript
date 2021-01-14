@@ -1,4 +1,5 @@
 const path = require('path');
+const TerserPlugin = require('terser-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = (env, argv) => {
@@ -31,6 +32,18 @@ module.exports = (env, argv) => {
         template: './src/index.html',
       }),
     ],
+    optimization: {
+      minimizer: [
+        new TerserPlugin({
+          extractComments: false,
+          terserOptions: {
+            compress: {
+              drop_console: true,
+            },
+          },
+        }),
+      ],
+    },
   };
 
   return argv.mode === 'development'
@@ -39,6 +52,7 @@ module.exports = (env, argv) => {
         devServer: {
           contentBase: path.join(__dirname, 'dist/'),
           hot: true,
+          port: 9000,
         },
       }
     : baseConfig;
